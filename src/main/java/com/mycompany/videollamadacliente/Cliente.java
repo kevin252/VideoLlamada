@@ -32,14 +32,15 @@ public class Cliente {
         try {
             
             Socket soc = new Socket("localhost", 45000);
+              InetAddress address = InetAddress.getLocalHost();
             PrintStream user= new PrintStream(soc.getOutputStream());
-            user.println(usuario);
+            user.println(address.getHostAddress());
             
             
             
-            BufferedReader ip= new BufferedReader(new InputStreamReader(soc.getInputStream()));
+            BufferedReader Listaips= new BufferedReader(new InputStreamReader(soc.getInputStream()));
             
-            if(!ip.readLine().equals("")){
+            
                 DatagramSocket udpsoc = new DatagramSocket(); 
                 //crear el paquete
                 String mensaje = "hola mundo";
@@ -47,8 +48,8 @@ public class Cliente {
                 
                 udpsoc.send(pkt);
             
-            }else{
-            }
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
